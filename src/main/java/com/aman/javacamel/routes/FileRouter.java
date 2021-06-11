@@ -13,12 +13,10 @@ public class FileRouter extends RouteBuilder {
     private  String sourceFolder;
     private String destFolder;
 
-    @Autowired
-    CamelContext camelContext;
-
     @Override
     public void configure() throws Exception {
-        from("file://" + sourceFolder).process(new FileProcessor())
+        from("file://" + sourceFolder).routeId("fileRoute").process(new FileProcessor())
                 .to("file://" + destFolder);
+
     }
 }

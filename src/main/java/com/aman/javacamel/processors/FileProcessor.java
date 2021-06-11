@@ -14,7 +14,7 @@ public class FileProcessor implements Processor {
     @Override
     public void process(Exchange exchange) throws Exception {
 
-        String originalName = exchange.getIn().getHeader(Exchange.FILE_NAME, String.class);
+        String originalFileName = exchange.getIn().getHeader(Exchange.FILE_NAME, String.class);
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat(
                 "yyyy-MM-dd HH-mm-ss");
