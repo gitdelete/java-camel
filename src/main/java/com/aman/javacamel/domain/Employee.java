@@ -9,10 +9,15 @@ import java.io.Serializable;
 @RequiredArgsConstructor
 public class Employee implements Serializable {
 
+    private String empId;
     private String name;
     private String department;
     private String address;
     private int salary;
+
+    public String getEmpId() {
+        return empId;
+    }
 
     public String getName() {
         return name;

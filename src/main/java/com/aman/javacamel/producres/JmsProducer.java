@@ -5,7 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Component;
+
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
 
 @Component
 @Slf4j
@@ -25,8 +30,17 @@ public class JmsProducer {
 
     public void sendMessage(Employee message){
         try{
-            jmsQueueTemplate.send(queue, m -> m.createObjectMessage(message));
-            jmsTopicTemplate.send(topic, m -> m.createObjectMessage(message));
+            MessageCreator mc = new MessageCreator() {
+                @Override
+                public Message createMessage(Session session) throws JMSException {
+                    Message m =  session.createObjectMessage(message);
+                    m.setJMSCorrelationID(message.getEmpId());
+                    return m;
+                }
+            };
+
+            jmsQueueTemplate.send(queue, mc);
+            jmsTopicTemplate.send(topic, mc);
             log.info("Attempting Send message to Topic: "+ queue);
 //            jmsTemplate.convertAndSend(queue, message);
         } catch(Exception e){

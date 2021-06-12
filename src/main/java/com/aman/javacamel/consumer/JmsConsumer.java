@@ -18,7 +18,7 @@ public class JmsConsumer implements MessageListener {
     private String queue;
 
     @Override
-    @JmsListener(destination = "${active-mq.queue}", containerFactory = "jmsQueueListenerContainerFactory")
+    @JmsListener(destination = "${active-mq.queue}", containerFactory = "jmsTopicListenerContainerFactory")
     public void onMessage(Message message) {
         try{
             System.out.println("heloooo Queue");
@@ -29,6 +29,5 @@ public class JmsConsumer implements MessageListener {
         } catch(Exception e) {
           log.error("Received Exception : "+ e);
         }
-
     }
 }
