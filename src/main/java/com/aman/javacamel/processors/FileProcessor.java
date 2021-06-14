@@ -15,6 +15,7 @@ public class FileProcessor implements Processor {
     public void process(Exchange exchange) throws Exception {
 
         String originalFileName = exchange.getIn().getHeader(Exchange.FILE_NAME, String.class);
+        System.out.println(originalFileName);
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat(
                 "yyyy-MM-dd HH-mm-ss");

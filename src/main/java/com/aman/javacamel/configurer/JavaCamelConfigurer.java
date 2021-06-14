@@ -1,7 +1,9 @@
 package com.aman.javacamel.configurer;
 
+import com.aman.javacamel.processors.ProcessFileContent;
 import com.aman.javacamel.routes.FileRouter;
 import org.apache.camel.CamelContext;
+import org.apache.camel.Ordered;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -9,6 +11,7 @@ import org.apache.camel.spring.SpringCamelContext;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 
 import java.util.Comparator;
 
@@ -20,6 +23,9 @@ public class JavaCamelConfigurer {
 
     @Value("${destination.folder.path}")
     private String destFolder;
+
+    @Value("${practice.folder.path}")
+    private String practiceFolder;
 
     /*
     *  This is with camel-core dependency without using spring boot camel starter
@@ -39,16 +45,13 @@ public class JavaCamelConfigurer {
     }
     */
 
-//    @Bean
-//    public CamelContext camelContext(){
-//
-//        CamelContext camelContext = new SpringCamelContext();
-//
-//        return camelContext;
-//    }
-
     @Bean
     public FileRouter getFileRouter(){
-        return new FileRouter(sourceFolder, destFolder);
+        return new FileRouter(practiceFolder, sourceFolder, destFolder);
+    }
+
+    @Bean
+    public ProcessFileContent processFileContent(){
+        return new ProcessFileContent();
     }
 }

@@ -1,6 +1,7 @@
 package com.aman.javacamel.configurer;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.camel.component.jms.JmsComponent;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +9,7 @@ import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
 
 import javax.jms.ConnectionFactory;
+import javax.jms.JMSException;
 import java.util.Arrays;
 
 @Configuration
@@ -62,6 +64,15 @@ public class EmsConfigurer {
         factory.setConnectionFactory(connectionFactory());
         factory.setPubSubDomain(true);      // For topic
         return factory;
+    }
+
+    @Bean
+    public JmsComponent jmsComponent(ActiveMQConnectionFactory activeMQConnectionFactory) throws JMSException {
+
+        // Create the Camel JMS component
+        JmsComponent jms = new JmsComponent();
+        jms.setConnectionFactory(activeMQConnectionFactory);
+        return jms;
     }
 
 }

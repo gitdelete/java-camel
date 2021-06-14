@@ -1,37 +1,20 @@
 package com.aman.javacamel.domain;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.io.Serializable;
 
-@Data
+@Getter
 @RequiredArgsConstructor
 public class Employee implements Serializable {
 
     private String empId;
-    private String name;
-    private String department;
-    private String address;
-    private int salary;
 
-    public String getEmpId() {
-        return empId;
-    }
+    private String empName;
 
-    public String getName() {
-        return name;
-    }
+    private String empCity;
 
-    public String getDepartment() {
-        return department;
-    }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public int getSalary() {
-        return salary;
-    }
 }
