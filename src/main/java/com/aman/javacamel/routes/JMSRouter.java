@@ -31,7 +31,7 @@ public class JMSRouter extends RouteBuilder {
         from("jms:queue:aman.javacamel.practice.queue")
                 .routeId("jmsConsumerRoute")
                 //.convertBodyTo(String.class)
-                .process(new JMSConsumerProcessor()).
+                .process(new JMSConsumerProcessor())
                 .log("JMS testing done !!!!");
 
     }
